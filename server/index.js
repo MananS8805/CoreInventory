@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const app = express();
+const connectDB = require('./data/db');
 
+const app = express();
 app.use(cors());
 app.use(express.json());
 
@@ -14,4 +16,10 @@ app.use('/api/adjustments', require('./middleware/auth'), require('./routes/adju
 app.use('/api/warehouses', require('./middleware/auth'), require('./routes/warehouses'));
 app.use('/api/dashboard', require('./middleware/auth'), require('./routes/dashboard'));
 
-app.listen(5000, () => console.log('CoreInventory API running on port 5000'));
+const PORT = process.env.PORT || 5000;
+
+connectDB().then(async () => {
+    const seed = require('./data/seed');
+    await seed();
+    app.listen(PORT, () => console.log(`CoreInventory API running on port ${PORT}`));
+});
