@@ -1,14 +1,23 @@
-const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'coreinventory_secret_2024'; // hardcode for hackathon
+const { createClerkClient } = require('@clerk/backend');
 
-module.exports = (req, res, next) => {
+const clerk = createClerkClient({
+  secretKey: process.env.CLERK_SECRET_KEY
+});
+
+module.exports = async (req, res, next) => {
   const header = req.headers['authorization'];
   if (!header) return res.status(401).json({ error: 'No token' });
+
   const token = header.split(' ')[1];
   try {
-    req.user = jwt.verify(token, JWT_SECRET);
+    const payload = await clerk.verifyToken(token);
+    req.user = {
+      id: payload.sub,
+      clerkId: payload.sub,
+    };
     next();
-  } catch {
+  } catch (err) {
+    console.error('Auth error:', err.message);
     return res.status(401).json({ error: 'Invalid token' });
   }
 };

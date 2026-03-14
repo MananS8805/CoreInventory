@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/* Soft theme styles */
+html.soft-theme, body.soft-theme, #root.soft-theme {
+  --tw-bg-opacity: 1;
+  background-color: #fcf8f1;
+  color: #1f2937;
+}
+
+html.soft-theme .bg-white {
+  background-color: #fffdf5 !important;
+}
+
+html.soft-theme .bg-gray-900 {
+  background-color: #f7f5ed !important;
+}
+
+html.soft-theme .text-gray-900 {
+  color: #2f2f2f !important;
+}
+
+html.soft-theme .border-gray-200 {
+  border-color: #f0e4d4 !important;
+}
+
+html.soft-theme .shadow-sm {
+  box-shadow: 0 1px 2px rgba(142, 119, 82, 0.15) !important;
+}
