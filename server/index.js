@@ -13,6 +13,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./middleware/auth'), require('./routes/products'));
 app.use('/api/receipts', require('./middleware/auth'), require('./routes/receipts'));
 app.use('/api/deliveries', require('./middleware/auth'), require('./routes/deliveries'));
+app.use('/api/transfers', require('./middleware/auth'), require('./routes/transfers'));
 app.use('/api/moves', require('./middleware/auth'), require('./routes/moves'));
 app.use('/api/adjustments', require('./middleware/auth'), require('./routes/adjustments'));
 app.use('/api/warehouses', require('./middleware/auth'), require('./routes/warehouses'));

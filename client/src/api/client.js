@@ -6,12 +6,13 @@ const client = axios.create({
 
 client.interceptors.request.use(async (config) => {
   try {
-    const token = await window.Clerk?.session?.getToken();
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-  } catch (e) {
-    console.warn('Could not get Clerk token', e);
+    // Get Clerk session token
+    const { getToken } = await import('@clerk/clerk-react');
+    const token = await getToken();
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+  } catch (err) {
+    // Clerk not available or not signed in
+    console.warn('Clerk token not available:', err);
   }
   return config;
 });
@@ -19,6 +20,10 @@ client.interceptors.request.use(async (config) => {
 client.interceptors.response.use(
   (res) => res,
   (err) => {
+    if (err.response?.status === 401) {
+      // Let Clerk handle logout
+      window.location.href = '/login';
+    }
     return Promise.reject(err);
   }
 );

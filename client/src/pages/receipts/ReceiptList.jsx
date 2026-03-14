@@ -50,20 +50,21 @@ export default function ReceiptList() {
         <table className="min-w-full divide-y divide-gray-200 text-sm dark:divide-gray-800">
           <thead className="bg-gray-50 dark:bg-gray-800">
             <tr>
-              {['Reference', 'Supplier', 'Status', 'Lines', 'Created', ''].map(h => (
+              {['Reference', 'Supplier', 'Warehouse', 'Status', 'Lines', 'Created', ''].map(h => (
                 <th key={h} className="px-3 py-2 text-left text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
             {loading ? (
-              <tr><td colSpan={6} className="px-3 py-6 text-center text-gray-400">Loading...</td></tr>
+              <tr><td colSpan={7} className="px-3 py-6 text-center text-gray-400">Loading...</td></tr>
             ) : filtered.length === 0 ? (
-              <tr><td colSpan={6} className="px-3 py-6 text-center text-gray-400">No receipts found</td></tr>
+              <tr><td colSpan={7} className="px-3 py-6 text-center text-gray-400">No receipts found</td></tr>
             ) : filtered.map(r => (
               <tr key={r.id} className="bg-white hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800">
                 <td className="px-3 py-2 font-semibold text-indigo-600 dark:text-indigo-400">{r.reference}</td>
                 <td className="px-3 py-2 text-gray-700 dark:text-gray-300">{r.supplier}</td>
+                <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{r.warehouse || 'Main Warehouse'}</td>
                 <td className="px-3 py-2">
                   <span className={`rounded-full px-2 py-0.5 text-xs font-semibold capitalize ${STATUS_COLORS[r.status] || STATUS_COLORS.draft}`}>
                     {r.status}

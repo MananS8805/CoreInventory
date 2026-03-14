@@ -10,9 +10,16 @@ export default function LowStockPanel() {
     refreshProducts();
   }, [refreshProducts]);
 
+  const getTotalStock = (product) => {
+    if (product.stock_by_location) {
+      return Object.values(product.stock_by_location).reduce((sum, qty) => sum + qty, 0);
+    }
+    return product.qty_on_hand || 0; // fallback for old structure
+  };
+
   const { lowStock, outOfStock } = useMemo(() => {
-    const low = lowStockAlerts.filter((p) => p.qty_on_hand > 0 && p.qty_on_hand <= p.min_stock).length;
-    const out = lowStockAlerts.filter((p) => p.qty_on_hand === 0).length;
+    const low = lowStockAlerts.filter((p) => getTotalStock(p) > 0 && getTotalStock(p) <= p.min_stock).length;
+    const out = lowStockAlerts.filter((p) => getTotalStock(p) === 0).length;
     return { lowStock: low, outOfStock: out };
   }, [lowStockAlerts]);
 
@@ -37,8 +44,8 @@ export default function LowStockPanel() {
               <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Product</th>
               <th className="px-3 py-2 text-gray-700 dark:text-gray-300">SKU</th>
               <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Category</th>
-              <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Location</th>
-              <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Current Qty</th>
+              <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Stock by Location</th>
+              <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Total Qty</th>
               <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Min Stock</th>
               <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Status</th>
               <th className="px-3 py-2 text-gray-700 dark:text-gray-300">Action</th>
@@ -53,7 +60,8 @@ export default function LowStockPanel() {
               </tr>
             ) : (
               lowStockAlerts.map((product) => {
-                const isOut = product.qty_on_hand === 0;
+                const totalStock = getTotalStock(product);
+                const isOut = totalStock === 0;
                 const rowClass = isOut
                   ? 'bg-red-50 dark:bg-red-950/40'
                   : 'bg-amber-50 dark:bg-amber-950/40';
@@ -63,8 +71,12 @@ export default function LowStockPanel() {
                     <td className="px-3 py-2 text-gray-800 dark:text-gray-200">{product.name}</td>
                     <td className="px-3 py-2 text-gray-800 dark:text-gray-200">{product.sku}</td>
                     <td className="px-3 py-2 text-gray-800 dark:text-gray-200">{product.category || '-'}</td>
-                    <td className="px-3 py-2 text-gray-800 dark:text-gray-200">{product.location || '-'}</td>
-                    <td className="px-3 py-2 font-semibold text-gray-900 dark:text-gray-100">{product.qty_on_hand}</td>
+                    <td className="px-3 py-2 text-gray-800 dark:text-gray-200">
+                      {product.stock_by_location ? Object.entries(product.stock_by_location).map(([loc, qty]) => (
+                        <div key={loc} className="text-xs">{loc}: {qty}</div>
+                      )) : product.location}
+                    </td>
+                    <td className="px-3 py-2 font-semibold text-gray-900 dark:text-gray-100">{totalStock}</td>
                     <td className="px-3 py-2 text-gray-800 dark:text-gray-200">{product.min_stock}</td>
                     <td className="px-3 py-2 text-sm font-semibold text-gray-800 dark:text-gray-100">{status}</td>
                     <td className="px-3 py-2">

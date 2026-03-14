@@ -9,6 +9,7 @@ export function AppProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [lowStockAlerts, setLowStockAlerts] = useState([]);
   const [moves, setMoves] = useState([]);
+  const [dashboardData, setDashboardData] = useState({});
   const recentLowStockIds = useRef(new Set());
   const { isSignedIn } = useAuth() || {};
 
@@ -40,6 +41,16 @@ export function AppProvider({ children }) {
     }
   }, [isSignedIn]);
 
+  const refreshDashboard = useCallback(async () => {
+    if (!isSignedIn) return;
+    try {
+      const res = await client.get('/dashboard');
+      setDashboardData(res.data || {});
+    } catch (e) {
+      console.error('Failed to refresh dashboard', e);
+    }
+  }, [isSignedIn]);
+
   return (
     <AppContext.Provider value={{
       products,
@@ -48,6 +59,8 @@ export function AppProvider({ children }) {
       setLowStockAlerts,
       moves,
       refreshMoves,
+      dashboardData,
+      refreshDashboard,
     }}>
       {children}
     </AppContext.Provider>

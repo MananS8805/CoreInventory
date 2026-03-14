@@ -9,6 +9,7 @@ const links = [
   { name: 'Bulk Import', path: '/products/bulk-import', nested: true },
   { name: 'Receipts', path: '/receipts' },
   { name: 'Deliveries', path: '/deliveries' },
+  { name: 'Transfers', path: '/transfers' },
   { name: 'Move History', path: '/moves' },
   { name: 'Low Stock', path: '/low-stock' },
   { name: 'Warehouses', path: '/warehouses' },

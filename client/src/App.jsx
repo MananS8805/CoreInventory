@@ -22,6 +22,7 @@ import ValuationReport from './pages/ValuationReport';
 import MoveHistory from './pages/MoveHistory';
 import LowStockPanel from './pages/LowStockPanel';
 import Warehouses from './pages/Warehouses';
+import Transfers from './pages/Transfers';
 
 function ProtectedRoute({ children }) {
   return (
@@ -51,7 +52,7 @@ export default function App() {
       <Route path="/receipts/:id" element={<ProtectedRoute><ReceiptDetail /></ProtectedRoute>} />
       <Route path="/deliveries" element={<ProtectedRoute><DeliveryList /></ProtectedRoute>} />
       <Route path="/deliveries/:id" element={<ProtectedRoute><DeliveryDetail /></ProtectedRoute>} />
-      <Route path="/transfers" element={<ProtectedRoute><MoveHistory /></ProtectedRoute>} />
+      <Route path="/transfers" element={<ProtectedRoute><Transfers /></ProtectedRoute>} />
       <Route path="/adjustments" element={<ProtectedRoute><MoveHistory /></ProtectedRoute>} />
       <Route path="/moves" element={<ProtectedRoute><MoveHistory /></ProtectedRoute>} />
       <Route path="/low-stock" element={<ProtectedRoute><LowStockPanel /></ProtectedRoute>} />

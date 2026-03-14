@@ -31,10 +31,18 @@ export default function ProductList() {
     }
   };
 
+  const getTotalStock = (product) => {
+    if (product.stock_by_location) {
+      return Object.values(product.stock_by_location).reduce((sum, qty) => sum + qty, 0);
+    }
+    return product.qty_on_hand || 0; // fallback for old structure
+  };
+
   const getStatusBadge = (p) => {
-    if (p.qty_on_hand === 0)
+    const totalStock = getTotalStock(p);
+    if (totalStock === 0)
       return <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700 dark:bg-red-900/30 dark:text-red-300">Out of Stock</span>;
-    if (p.qty_on_hand <= p.min_stock)
+    if (totalStock <= p.min_stock)
       return <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">Low Stock</span>;
     return <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-300">In Stock</span>;
   };
@@ -67,7 +75,7 @@ export default function ProductList() {
         <table className="min-w-full divide-y divide-gray-200 text-sm dark:divide-gray-800">
           <thead className="bg-gray-50 dark:bg-gray-800">
             <tr>
-              {['Name', 'SKU', 'Category', 'Unit', 'Qty', 'Min Stock', 'Location', 'Status', ''].map(h => (
+              {['Name', 'SKU', 'Category', 'Unit', 'Total Qty', 'Min Stock', 'Stock by Location', 'Status', ''].map(h => (
                 <th key={h} className="px-3 py-2 text-left text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">{h}</th>
               ))}
             </tr>
@@ -81,9 +89,13 @@ export default function ProductList() {
                 <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{p.sku}</td>
                 <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{p.category}</td>
                 <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{p.unit}</td>
-                <td className="px-3 py-2 font-semibold text-gray-900 dark:text-gray-100">{p.qty_on_hand}</td>
+                <td className="px-3 py-2 font-semibold text-gray-900 dark:text-gray-100">{getTotalStock(p)}</td>
                 <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{p.min_stock}</td>
-                <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{p.location}</td>
+                <td className="px-3 py-2 text-gray-500 dark:text-gray-400">
+                  {p.stock_by_location ? Object.entries(p.stock_by_location).map(([loc, qty]) => (
+                    <div key={loc} className="text-xs">{loc}: {qty}</div>
+                  )) : p.location}
+                </td>
                 <td className="px-3 py-2">{getStatusBadge(p)}</td>
                 <td className="px-3 py-2">
                   <div className="flex gap-2">

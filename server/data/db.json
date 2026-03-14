@@ -1,0 +1,317 @@
+{
+  "users": [
+    {
+      "id": "1f295c1a-cd8d-47ac-96fe-7637ac2ce198",
+      "clerkId": "user_2abc123def456",
+      "name": "Admin User",
+      "email": "manansheth8805@gmail.com",
+      "passwordHash": "$2a$10$YiWnZOEcP1LwOTeaXgVkF.3mx3.utllxlv2qkPeU1btlQaO1TGR0G",
+      "createdAt": "2026-02-12T10:58:14.771Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "5574f5ab-bc7b-4615-a119-1effa21f250d",
+      "name": "Steel Rods",
+      "sku": "SR-001",
+      "category": "Metals",
+      "unit": "pcs",
+      "cost_price": 250,
+      "min_stock": 20,
+      "stock_by_location": {
+        "Main Warehouse: Rack A": 120
+      },
+      "createdAt": "2026-02-22T10:58:14.775Z",
+      "updatedAt": "2026-03-12T10:58:14.775Z"
+    },
+    {
+      "id": "6dfd7e1e-069a-4801-ac52-551737584439",
+      "name": "Wooden Planks",
+      "sku": "WP-002",
+      "category": "Wood",
+      "unit": "pcs",
+      "cost_price": 180,
+      "min_stock": 15,
+      "stock_by_location": {
+        "Main Warehouse: Rack B": 80
+      },
+      "createdAt": "2026-02-22T10:58:14.775Z",
+      "updatedAt": "2026-03-12T10:58:14.775Z"
+    },
+    {
+      "id": "b8a04d83-9b2e-4f01-96d1-4aee5a2116ac",
+      "name": "Aluminum Sheets",
+      "sku": "AS-003",
+      "category": "Metals",
+      "unit": "sheets",
+      "cost_price": 420,
+      "min_stock": 10,
+      "stock_by_location": {
+        "Main Warehouse: Rack A": 0
+      },
+      "createdAt": "2026-02-22T10:58:14.775Z",
+      "updatedAt": "2026-03-12T10:58:14.775Z"
+    },
+    {
+      "id": "6d1d7c76-309d-497b-9e77-a1eb10f72ce0",
+      "name": "Copper Wire",
+      "sku": "CW-004",
+      "category": "Electrical",
+      "unit": "rolls",
+      "cost_price": 650,
+      "min_stock": 10,
+      "stock_by_location": {
+        "Main Warehouse: Production Floor": 8
+      },
+      "createdAt": "2026-02-22T10:58:14.775Z",
+      "updatedAt": "2026-03-12T10:58:14.775Z"
+    },
+    {
+      "id": "2d0c87c2-6c71-4fc1-9ab5-a7fe4adcd270",
+      "name": "PVC Pipes",
+      "sku": "PP-005",
+      "category": "Plumbing",
+      "unit": "pcs",
+      "cost_price": 95,
+      "min_stock": 30,
+      "stock_by_location": {
+        "Main Warehouse: Dispatch Bay": 200
+      },
+      "createdAt": "2026-02-22T10:58:14.775Z",
+      "updatedAt": "2026-03-12T10:58:14.775Z"
+    }
+  ],
+  "receipts": [
+    {
+      "id": "0ad143b0-ee01-4c60-9ffd-6f6c0e1ee28e",
+      "reference": "REC/2026/0001",
+      "supplier": "Metro Metals Ltd",
+      "warehouse": "Main Warehouse",
+      "status": "done",
+      "lines": [
+        {
+          "product_id": "5574f5ab-bc7b-4615-a119-1effa21f250d",
+          "product_name": "Steel Rods",
+          "qty": 50,
+          "received_qty": 50
+        },
+        {
+          "product_id": "6dfd7e1e-069a-4801-ac52-551737584439",
+          "product_name": "Wooden Planks",
+          "qty": 30,
+          "received_qty": 30
+        }
+      ],
+      "notes": "Monthly restocking",
+      "createdAt": "2026-03-07T10:58:14.785Z",
+      "validatedAt": "2026-03-08T10:58:14.785Z"
+    },
+    {
+      "id": "854f8f39-78aa-4212-864b-21be65709472",
+      "reference": "REC/2026/0002",
+      "supplier": "BuildSupply Co",
+      "warehouse": "Main Warehouse",
+      "status": "done",
+      "lines": [
+        {
+          "product_id": "2d0c87c2-6c71-4fc1-9ab5-a7fe4adcd270",
+          "product_name": "PVC Pipes",
+          "qty": 100,
+          "received_qty": 100
+        }
+      ],
+      "notes": "Urgent restocking",
+      "createdAt": "2026-03-10T10:58:14.789Z",
+      "validatedAt": "2026-03-11T10:58:14.789Z"
+    },
+    {
+      "id": "862faf89-7a12-48c4-8ae5-c2e197699866",
+      "reference": "REC/2026/0003",
+      "supplier": "ElectroParts India",
+      "warehouse": "Main Warehouse",
+      "status": "draft",
+      "lines": [
+        {
+          "product_id": "b8a04d83-9b2e-4f01-96d1-4aee5a2116ac",
+          "product_name": "Aluminum Sheets",
+          "qty": 40,
+          "received_qty": 0
+        },
+        {
+          "product_id": "6d1d7c76-309d-497b-9e77-a1eb10f72ce0",
+          "product_name": "Copper Wire",
+          "qty": 20,
+          "received_qty": 0
+        }
+      ],
+      "notes": "Pending supplier confirmation",
+      "createdAt": "2026-03-13T10:58:14.794Z",
+      "validatedAt": null
+    }
+  ],
+  "deliveries": [
+    {
+      "id": "97b9b6dc-c38a-4e7d-b91c-6af77b725cde",
+      "reference": "DEL/2026/0001",
+      "customer": "Horizon Constructions",
+      "warehouse": "Main Warehouse",
+      "status": "done",
+      "lines": [
+        {
+          "product_id": "5574f5ab-bc7b-4615-a119-1effa21f250d",
+          "product_name": "Steel Rods",
+          "qty": 20
+        },
+        {
+          "product_id": "2d0c87c2-6c71-4fc1-9ab5-a7fe4adcd270",
+          "product_name": "PVC Pipes",
+          "qty": 50
+        }
+      ],
+      "notes": "Site delivery",
+      "createdAt": "2026-03-09T10:58:14.796Z",
+      "validatedAt": "2026-03-10T10:58:14.796Z"
+    },
+    {
+      "id": "50433d3b-9782-44ef-b720-da3930325857",
+      "reference": "DEL/2026/0002",
+      "customer": "Greenfield Interiors",
+      "warehouse": "Main Warehouse",
+      "status": "draft",
+      "lines": [
+        {
+          "product_id": "6dfd7e1e-069a-4801-ac52-551737584439",
+          "product_name": "Wooden Planks",
+          "qty": 25
+        }
+      ],
+      "notes": "Awaiting dispatch clearance",
+      "createdAt": "2026-03-14T10:58:14.800Z",
+      "validatedAt": null
+    }
+  ],
+  "moveLogs": [
+    {
+      "id": "9bc9a08b-1e78-48a9-a0b5-0f867bee4fde",
+      "date": "2026-03-08T10:58:14.786Z",
+      "type": "receipt",
+      "product_id": "5574f5ab-bc7b-4615-a119-1effa21f250d",
+      "product_name": "Steel Rods",
+      "product_sku": "SR-001",
+      "qty": 50,
+      "qty_before": 70,
+      "qty_after": 120,
+      "from_location": null,
+      "to_location": "Main Warehouse: Rack A",
+      "reference": "REC/2026/0001",
+      "notes": "Receipt validated"
+    },
+    {
+      "id": "8b8dca0f-e563-491d-bbe2-ef5f076b7189",
+      "date": "2026-03-08T10:58:14.787Z",
+      "type": "receipt",
+      "product_id": "6dfd7e1e-069a-4801-ac52-551737584439",
+      "product_name": "Wooden Planks",
+      "product_sku": "WP-002",
+      "qty": 30,
+      "qty_before": 50,
+      "qty_after": 80,
+      "from_location": null,
+      "to_location": "Main Warehouse: Rack B",
+      "reference": "REC/2026/0001",
+      "notes": "Receipt validated"
+    },
+    {
+      "id": "aa31bfd1-6a8e-464d-9ef5-ed968a96543d",
+      "date": "2026-03-11T10:58:14.790Z",
+      "type": "receipt",
+      "product_id": "2d0c87c2-6c71-4fc1-9ab5-a7fe4adcd270",
+      "product_name": "PVC Pipes",
+      "product_sku": "PP-005",
+      "qty": 100,
+      "qty_before": 100,
+      "qty_after": 200,
+      "from_location": null,
+      "to_location": "Main Warehouse: Dispatch Bay",
+      "reference": "REC/2026/0002",
+      "notes": "Receipt validated"
+    },
+    {
+      "id": "dfbd614d-b651-42f9-9c20-63620f853eb5",
+      "date": "2026-03-10T10:58:14.798Z",
+      "type": "delivery",
+      "product_id": "5574f5ab-bc7b-4615-a119-1effa21f250d",
+      "product_name": "Steel Rods",
+      "product_sku": "SR-001",
+      "qty": 20,
+      "qty_before": 140,
+      "qty_after": 120,
+      "from_location": "Main Warehouse: Rack A",
+      "to_location": null,
+      "reference": "DEL/2026/0001",
+      "notes": "Delivery validated"
+    },
+    {
+      "id": "b18937af-7605-4994-b5be-318d60172a17",
+      "date": "2026-03-10T10:58:14.798Z",
+      "type": "delivery",
+      "product_id": "2d0c87c2-6c71-4fc1-9ab5-a7fe4adcd270",
+      "product_name": "PVC Pipes",
+      "product_sku": "PP-005",
+      "qty": 50,
+      "qty_before": 250,
+      "qty_after": 200,
+      "from_location": "Main Warehouse: Dispatch Bay",
+      "to_location": null,
+      "reference": "DEL/2026/0001",
+      "notes": "Delivery validated"
+    },
+    {
+      "id": "4157964e-777f-4ff3-ba78-e5af9667b770",
+      "date": "2026-03-12T10:58:14.803Z",
+      "type": "adjustment",
+      "product_id": "6d1d7c76-309d-497b-9e77-a1eb10f72ce0",
+      "product_name": "Copper Wire",
+      "product_sku": "CW-004",
+      "qty": 2,
+      "qty_before": 10,
+      "qty_after": 8,
+      "from_location": "Main Warehouse: Production Floor",
+      "to_location": "Main Warehouse: Production Floor",
+      "reference": "f5d97448-bf7f-4340-9a4c-ca5125a01081",
+      "notes": "Physical count — 2 rolls damaged"
+    }
+  ],
+  "adjustments": [
+    {
+      "id": "f5d97448-bf7f-4340-9a4c-ca5125a01081",
+      "product_id": "6d1d7c76-309d-497b-9e77-a1eb10f72ce0",
+      "product_name": "Copper Wire",
+      "location": "Main Warehouse: Production Floor",
+      "qty_before": 10,
+      "qty_counted": 8,
+      "difference": -2,
+      "reason": "Physical count — 2 rolls damaged",
+      "createdAt": "2026-03-12T10:58:14.802Z"
+    }
+  ],
+  "transfers": [],
+  "warehouses": [
+    {
+      "id": "62564894-5235-4075-8b23-e98db14647a1",
+      "name": "Main Warehouse",
+      "short_code": "MW",
+      "address": "123 Industrial Area",
+      "locations": [
+        "Rack A",
+        "Rack B",
+        "Production Floor",
+        "Dispatch Bay"
+      ]
+    }
+  ],
+  "counters": {
+    "receipt": 3,
+    "delivery": 2
+  }
+}

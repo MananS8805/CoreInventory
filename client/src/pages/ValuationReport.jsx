@@ -45,7 +45,11 @@ export default function ValuationReport() {
                 <td className="px-3 py-2 font-medium text-gray-900 dark:text-gray-100">{p.name}</td>
                 <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{p.sku}</td>
                 <td className="px-3 py-2 text-gray-500 dark:text-gray-400">{p.category}</td>
-                <td className="px-3 py-2 text-gray-700 dark:text-gray-300">{p.qty_on_hand} {p.unit}</td>
+                <td className="px-3 py-2 text-gray-700 dark:text-gray-300">
+                  {p.stock_by_location
+                    ? Object.values(p.stock_by_location).reduce((sum, qty) => sum + qty, 0)
+                    : p.qty_on_hand || 0} {p.unit}
+                </td>
                 <td className="px-3 py-2 text-gray-700 dark:text-gray-300">₹{p.cost_price.toLocaleString()}</td>
                 <td className="px-3 py-2 font-semibold text-indigo-600 dark:text-indigo-400">₹{p.valuation.toLocaleString()}</td>
               </tr>

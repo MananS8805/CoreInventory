@@ -12,7 +12,7 @@ export default function ProductForm() {
 
   const [form, setForm] = useState({
     name: '', sku: '', category: '', unit: 'pcs',
-    qty_on_hand: 0, cost_price: 0, min_stock: 0, location: ''
+    initial_stock: 0, cost_price: 0, min_stock: 0, initial_location: 'Main Warehouse: Default'
   });
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -21,7 +21,26 @@ export default function ProductForm() {
     if (!isEdit) return;
     setLoading(true);
     client.get(`/products/${id}`)
-      .then(res => setForm(res.data))
+      .then(res => {
+        const product = res.data;
+        const totalStock = product.stock_by_location
+          ? Object.values(product.stock_by_location).reduce((sum, qty) => sum + qty, 0)
+          : product.qty_on_hand || 0;
+        const defaultLocation = product.stock_by_location
+          ? Object.keys(product.stock_by_location)[0] || 'Main Warehouse: Default'
+          : product.location || 'Main Warehouse: Default';
+
+        setForm({
+          name: product.name || '',
+          sku: product.sku || '',
+          category: product.category || '',
+          unit: product.unit || 'pcs',
+          initial_stock: totalStock,
+          cost_price: product.cost_price || 0,
+          min_stock: product.min_stock || 0,
+          initial_location: defaultLocation
+        });
+      })
       .catch(() => toast.error('Failed to load product'))
       .finally(() => setLoading(false));
   }, [id, isEdit]);
@@ -35,11 +54,21 @@ export default function ProductForm() {
     e.preventDefault();
     setSaving(true);
     try {
+      const submitData = {
+        name: form.name,
+        sku: form.sku,
+        category: form.category,
+        unit: form.unit,
+        cost_price: form.cost_price,
+        min_stock: form.min_stock,
+        stock_by_location: form.initial_stock > 0 ? { [form.initial_location]: form.initial_stock } : {}
+      };
+
       if (isEdit) {
-        await client.put(`/products/${id}`, form);
+        await client.put(`/products/${id}`, submitData);
         toast.success('Product updated');
       } else {
-        await client.post('/products', form);
+        await client.post('/products', submitData);
         toast.success('Product created');
       }
       refreshProducts();
@@ -58,10 +87,10 @@ export default function ProductForm() {
     { name: 'sku', label: 'SKU', type: 'text', required: true },
     { name: 'category', label: 'Category', type: 'text' },
     { name: 'unit', label: 'Unit (pcs / kg / rolls...)', type: 'text' },
-    { name: 'qty_on_hand', label: 'Qty on Hand', type: 'number' },
+    { name: 'initial_stock', label: 'Initial Stock Quantity', type: 'number' },
     { name: 'cost_price', label: 'Cost Price (₹)', type: 'number' },
     { name: 'min_stock', label: 'Min Stock', type: 'number' },
-    { name: 'location', label: 'Location', type: 'text' },
+    { name: 'initial_location', label: 'Initial Location', type: 'text' },
   ];
 
   return (
