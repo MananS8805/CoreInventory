@@ -1,119 +1,145 @@
 # CoreInventory
 
-CoreInventory is a full-stack inventory management prototype built for learning and collaboration. It demonstrates modern best practices using React, Vite and Tailwind on the frontend and Express on the backend, with JWT-based authentication and RESTful APIs.
+CoreInventory is a full-stack inventory management prototype built for learning and collaboration. It demonstrates modern best practices using **React, Vite, and Tailwind CSS** on the frontend and **Express.js** on the backend, with **JWT-based authentication** and RESTful APIs.
 
-## Tech stack
+---
 
-- Frontend
-  - React 18
-  - Vite
-  - Tailwind CSS
-  - Axios
-- Backend
-  - Node.js 18+
-  - Express
-  - REST API
-  - JWT authentication
+# Tech Stack
 
-## Project structure
+### Frontend
+- React 18
+- Vite
+- Tailwind CSS
+- Axios
+
+### Backend
+- Node.js 18+
+- Express
+- REST API
+- JWT Authentication
+
+---
+
+# Project Structure
 
 ```
 CoreInventory
 │
-├── index.html
-├── tailwind.config.js
-├── postcss.config.js
-├── README.md
+├── client/                 # React frontend
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── ...
 │
-├── src/                  # React frontend
-│   ├── main.jsx          # App bootstrap
-│   ├── App.jsx           # Routes + protected routes
-│   ├── context/          # State management (Auth/App contexts)
-│   ├── api/              # Axios client + API helpers
-│   ├── components/       # Reusable UI components
-│   └── pages/            # App pages (Dashboard, products, etc.)
+├── server/                 # Express backend
+│   ├── routes/
+│   ├── models/
+│   ├── middleware/
+│   ├── data/
+│   ├── package.json
+│   └── index.js
 │
-└── backend/              # Express backend
-    ├── index.js          # API server
-    ├── middleware/       # Auth middleware
-    ├── models/           # Data model logic
-    └── data/             # In-memory data + seed scripts
+├── .gitignore
+└── README.md
 ```
 
-## Prerequisites
+---
 
-- Node.js 18+ installed
-- npm available
+# Prerequisites
+
+Make sure the following tools are installed:
+
+- Node.js **18+**
+- npm
 - Git (recommended)
 
-## Installation
+---
 
-1. Clone repository
+# Installation
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/MananS8805/CoreInventory.git
 cd CoreInventory
 ```
 
-2. Install frontend dependencies
+### 2. Install frontend dependencies
 
 ```bash
+cd client
 npm install
 ```
 
-3. Install backend dependencies
+### 3. Install backend dependencies
 
 ```bash
-cd backend
+cd ../server
 npm install
-cd ..
 ```
 
-## Run locally (GitHub workflow)
+---
 
-Open two terminal sessions.
+# Run Locally
 
-1. Start backend
+You need **two terminals**.
+
+### Terminal 1 — Start Backend Server
 
 ```bash
-cd backend
+cd server
 npm start
 ```
 
-- Backend URL: `http://localhost:5000`
-- API prefix: `http://localhost:5000/api`
+Backend runs at:
 
-2. Start frontend
+```
+http://localhost:5000
+```
+
+---
+
+### Terminal 2 — Start Frontend
 
 ```bash
-cd ..
+cd client
 npm run dev
 ```
 
-- Frontend URL: `http://localhost:5173`
+Frontend runs at:
 
-3. Verify service availability
+```
+http://localhost:5173
+```
 
-- App: `http://localhost:5173`
-- API health: `http://localhost:5000/api/products`
+---
 
-## Environment variables (optional)
+# Verify Service Availability
 
-You can configure `VITE_API_URL` in `.env`:
+- Application: `http://localhost:5173`
+- API check: `http://localhost:5000/api/products`
+
+---
+
+# Environment Variables (Optional)
+
+You can configure the API URL using `.env`.
+
+Create a `.env` file in the root directory:
 
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
-And update `src/api/client.js`:
+Update `src/api/client.js`:
 
-```js
+```javascript
 const client = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
 });
 ```
 
-Add to `.gitignore`:
+Add `.env` to `.gitignore`:
 
 ```
 node_modules/
@@ -122,45 +148,60 @@ backend/node_modules/
 .env
 ```
 
-## User workflows
+---
 
-1. Signup: `/signup`
-2. Login: `/login` (email/password or OTP simulation)
-3. Main dashboard: `/` (redirects to dashboard)
+# User Workflows
 
-## API endpoints
+1. **Signup:** `/signup`
+2. **Login:** `/login`
+   - Email + password
+   - OTP login (simulated)
+3. **Dashboard:** `/` → redirects to dashboard
+
+---
+
+# API Endpoints
 
 ### Authentication
-- POST `/api/auth/signup`
-- POST `/api/auth/login`
-- POST `/api/auth/request-otp`
-- POST `/api/auth/verify-otp`
+
+- `POST /api/auth/signup`
+- `POST /api/auth/login`
+- `POST /api/auth/request-otp`
+- `POST /api/auth/verify-otp`
+
+---
 
 ### Inventory
-- GET `/api/products`
-- GET `/api/receipts`
-- GET `/api/deliveries`
-- GET `/api/moves`
+
+- `GET /api/products`
+- `GET /api/receipts`
+- `GET /api/deliveries`
+- `GET /api/moves`
+
+---
 
 ### Warehouses
-- GET `/api/warehouses`
-- POST `/api/warehouses`
-- PUT `/api/warehouses/:id`
-- POST `/api/warehouses/:id/locations`
 
-## Team roles (3-person collaboration)
+- `GET /api/warehouses`
+- `POST /api/warehouses`
+- `PUT /api/warehouses/:id`
+- `POST /api/warehouses/:id/locations`
 
-### Manan Sheth — (Backend & Data Layer )
+---
 
-Responsible for building the backend architecture, APIs, and inventory logic.
+# Team Roles (3-Person Collaboration)
 
-Responsibilities:
+## Manan Sheth — Backend & Data Layer
+
+Responsible for backend architecture, APIs, and inventory logic.
+
+### Responsibilities
 - Setup Express backend server
 - Implement API routes and authentication
 - Build inventory data models
 - Handle product stock and valuation logic
 
-Features owned:
+### Features Owned
 - Express server + routes + authentication
 - Product CRUD APIs
 - Stock ledger management
@@ -170,20 +211,22 @@ Features owned:
 - Bulk import API (parse + create products)
 - Low-stock validation after stock updates
 
-Deliverable:
-- ✔ All APIs implemented and accessible from frontend
+### Deliverables
+- ✔ All APIs implemented and accessible from frontend  
 - ✔ Bulk import endpoint ready for UI integration
 
-### Kalp Soneji — (Core UI & Analytics) 
+---
 
-Responsible for main user interface screens and analytics dashboards.
+## Kalp Soneji — Core UI & Analytics
 
-Responsibilities:
+Responsible for the main UI screens and analytics dashboards.
+
+### Responsibilities
 - Build React UI pages
 - Connect frontend with backend APIs
 - Implement analytics and charts
 
-Features owned:
+### Features Owned
 - Dashboard KPI cards
 - Product list + create/edit forms
 - Receipts and deliveries list + details
@@ -193,21 +236,23 @@ Features owned:
 - Excel / CSV export on list views
 - Bulk import UI (upload + preview table)
 
-Deliverable:
-- ✔ All main application screens
-- ✔ Charts and export features
+### Deliverables
+- ✔ All main application screens  
+- ✔ Charts and export features  
 - ✔ Bulk import user interface
 
-### Vatsal Shah — (Authentication, UX & Polish )
+---
 
-Responsible for authentication flow, user experience improvements, and additional UI features.
+## Vatsal Shah — Authentication, UX & Polish
 
-Responsibilities:
+Responsible for authentication flow and overall user experience improvements.
+
+### Responsibilities
 - Implement authentication system
-- Improve usability and interface experience
-- Add helpful UI utilities and notifications
+- Improve usability and UI experience
+- Add notification and productivity features
 
-Features owned:
+### Features Owned
 - Login / Signup pages
 - JWT authentication flow
 - Protected route wrapper
@@ -220,64 +265,102 @@ Features owned:
 - Product audit trail / timeline
 - Print-ready receipt slip (`window.print`)
 
-## GitHub development workflow
+---
 
-1. New feature branch:
+# GitHub Development Workflow
+
+### 1. Create a feature branch
 
 ```bash
 git checkout -b feat/<feature-name>
 ```
 
-2. Commit work:
+### 2. Commit your work
 
 ```bash
 git add .
-git commit -m 'feat: ...'
+git commit -m "feat: add feature"
 ```
 
-3. Push branch:
+### 3. Push branch
 
 ```bash
 git push origin feat/<feature-name>
 ```
 
-4. Create pull request and request reviews.
+### 4. Open Pull Request on GitHub and request review.
 
-## Troubleshooting
+---
 
-### Black screen
+# Troubleshooting
 
-- Clear localStorage: `localStorage.clear()`
-- Refresh `http://localhost:5173`
-- Ensure backend up at `http://localhost:5000/api/products`
+## Black Screen
 
-### CORS / network
+Clear browser storage:
 
-- Run backend on port 5000
-- Run frontend on port 5173
-- Backend uses `cors()` in `backend/index.js`
+```javascript
+localStorage.clear()
+```
 
-## Commands summary
+Then refresh:
+
+```
+http://localhost:5173
+```
+
+---
+
+## Backend Not Responding
+
+Check API directly:
+
+```
+http://localhost:5000/api/products
+```
+
+It should return JSON.
+
+---
+
+## CORS / Network Issues
+
+Ensure:
+
+- Backend running on **port 5000**
+- Frontend running on **port 5173**
+- Backend uses `cors()` middleware in `server/index.js`
+
+---
+
+# Commands Summary
+
+### Frontend
 
 ```bash
-# frontend
 npm install
 npm run dev
+```
 
-# backend
-cd backend
+### Backend
+
+```bash
+cd server
 npm install
 npm start
 ```
 
-## Future improvements
+---
 
-- Replace in-memory store with PostgreSQL / SQLite
-- Add bcrypt password hashing
-- Implement token refresh and stronger auth
-- Add unit + integration tests (Jest, RTL)
-- Add detailed operations analytics
+# Future Improvements
 
-## License
+- Replace in-memory store with **PostgreSQL / SQLite**
+- Add **bcrypt password hashing**
+- Implement **JWT refresh tokens**
+- Add **unit and integration tests** (Jest / React Testing Library)
+- Implement **inventory analytics dashboard**
+
+---
+
+# License
 
 MIT License
